@@ -20,7 +20,14 @@ You can view your:
 
 # Vulnerability:
 My chosen CWEs are [CWE:89](https://cwe.mitre.org/data/definitions/89.html) and [CWE:27](https://cwe.mitre.org/data/definitions/287.html).
-Vulnerability exists in the login authentication flow. I have not sanitized the user input fields and directly combined them with the sql query neither I have checked if data being returned from database is the valid data for the selected user or not. So if user inputs a special query in password/username field, they can bypass the authentication and perform all the actions given above.
+1. SQL Injection (CWE-89):
+The vulnerability exists in the authentication function where user inputs (username/password) are directly concatenated into SQL queries without proper sanitization. For example
+```
+snprintf(query, sizeof(query), "SELECT * FROM users_eid WHERE eid='%s' AND password='%s'", eid, password);
+```
+2. Improper Authentication (CWE-287):
+The authentication flow fails to properly validate user provided credentials. After querying the database, the code simply checks if any rows are returned from the database without verifying if the returned data actually matches the user's credentials.
+
 
 # How to Run Vulnerability:
 - Choose any type of user
