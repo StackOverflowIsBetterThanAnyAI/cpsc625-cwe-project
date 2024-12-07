@@ -51,8 +51,8 @@ int vulnerableAuthenticate(sqlite3 *db, const char *eid, const char *username, c
     sqlite3_stmt *stmt;
     int result = 0;
     
-    // VULNERABILITY
-    // CWE 89 - SQL injection vulnerabilit because of string concatenation in the query
+    // CRITICAL VULNERABILITY #1: SQL Injection in Authentication
+    // CWE 89 - SQL injection vulnerabilit because of string concatenation in the query    
     if (loginType == LOGIN_TYPE.EID_ACCOUNT) {
         snprintf(query, sizeof(query), "SELECT * FROM users_eid WHERE eid='%s' AND password='%s'", eid, password);
     } 
@@ -71,7 +71,7 @@ int vulnerableAuthenticate(sqlite3 *db, const char *eid, const char *username, c
     
     rc = sqlite3_step(stmt);
 
-    // VULNERABILITY
+    // CRITICAL VULNERABILITY #2: Weak Authentication Check
     //CWE-287 - checking if query returns any rows is weak authentication, there's no secure password hashing/salting either
     if (rc == SQLITE_ROW) {
         result = 1;  // Authentication successful

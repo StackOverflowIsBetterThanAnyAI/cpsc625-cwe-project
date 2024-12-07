@@ -21,7 +21,7 @@ You can view your:
 # Vulnerability:
 My chosen CWEs are [CWE:89](https://cwe.mitre.org/data/definitions/89.html) and [CWE:27](https://cwe.mitre.org/data/definitions/287.html).
 1. SQL Injection (CWE-89):
-The vulnerability exists in the authentication function where user inputs (username/password) are directly concatenated into SQL queries without proper sanitization. For example
+The vulnerability exists in the authentication function `vulnerableAuthenticate` where user inputs (username/password) are directly concatenated into SQL queries without proper sanitization. For example
 ```
 snprintf(query, sizeof(query), "SELECT * FROM users_eid WHERE eid='%s' AND password='%s'", eid, password);
 ```
